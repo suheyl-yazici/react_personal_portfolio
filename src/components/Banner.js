@@ -2,16 +2,17 @@ import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import headerImg from "../assets/img/header-img.svg";
-
+import "animate.css";
+import TrackVisibility from 'react-on-screen';
 
 export const Banner = () => {
 
     const [loopNum, setLoopNum] = useState(0);
     const [isDeleting, setIsDeleting] = useState(false);
-
-    const toRotate = ["Web Developer", "Web Designer", "UI/UX Designer"];
     const [text, setText] = useState("");
     const [delta, setDelta] = useState(300 - Math.random() * 100);
+
+    const toRotate = ["Web Developer", "Web Designer", "UI/UX Designer"];
     const period = 2000;
 
     useEffect(() => {
@@ -42,20 +43,29 @@ export const Banner = () => {
         }
     }
     
-
-
   return (
     <section className="banner" id="home">
         <Container>
             <Row className="align-items-center">
             <Col xs={12} md={8} xl={6}>
-                <span className="tagline">Welcome to My Portfolio</span>
-                <h1>{`Hi I'm SüheyL `} <span className="wrap">{text}</span></h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos quasi quaerat voluptate aliquam molestias! Consequatur explicabo vel hic quod ratione? </p>
-                <button onClick={() => console.log("connect")}>Let's connect <ArrowRightCircle size={25} /></button>
+                <TrackVisibility>
+                {({isVisible}) =>
+                    <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
+                        <span className="tagline">Welcome to My Portfolio</span>
+                        <h1>{`Hi I'm SüheyL `} <span className="wrap">{text}</span></h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos quasi quaerat voluptate aliquam molestias! Consequatur explicabo vel hic quod ratione? </p>
+                        <button onClick={() => console.log("connect")}>Let's connect <ArrowRightCircle size={25} /></button>
+                    </div> 
+                }
+                </TrackVisibility>
             </Col>
             <Col xs={12} md={8} xl={6}>
-                <img src={headerImg} alt="Header Img" />
+                <TrackVisibility>
+                {({ isVisible }) =>
+                    <div className={isVisible ? "animate__animated animate__zoomIn" : ""}>
+                    <img src={headerImg} alt="Header Img"/>
+                    </div>}
+                </TrackVisibility>
             </Col>
             </Row>
         </Container>  
